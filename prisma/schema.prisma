@@ -1,0 +1,57 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Departamento {
+  id Int @id @default(autoincrement())
+  nome String
+  funcionarios Funcionario[]
+}
+
+model Funcao {
+  id Int @id @default(autoincrement())
+  nome String
+  funcionarios Funcionario[]
+}
+
+model Dependente {
+  id Int @id @default(autoincrement())
+  nome String
+  funcionarioId Int
+  funcionario_d Funcionario @relation(fields: [funcionarioId], references: [id])
+}
+
+model Funcionario {
+  id Int @id @default(autoincrement())
+  nome String
+  data_nascimento DateTime
+  nacionalidade String
+  estado_civil String
+  naturalidade String
+  endereco String
+  contato String
+  email String
+  escolaridade String
+  nome_pai String
+  nome_mae String
+  ctps String
+  titulo_eleitor String
+  reservista Boolean
+  salario Float
+  data_admissao DateTime
+  numero_botina Int
+  tamanho_camisa String
+  vale_transporte Boolean
+  medicamento_controlado Boolean
+  departamentoId Int
+  departamento Departamento @relation(fields: [departamentoId], references: [id])
+  dependentes Dependente[]
+  funcaoId Int
+  funcao Funcao @relation(fields: [funcaoId], references: [id])
+}
